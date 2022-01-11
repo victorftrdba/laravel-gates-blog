@@ -10,7 +10,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $this->authorize('Visualizar Página Home');
+        $this->authorize('Visualizar Página Dashboard');
 
         return view('admin.dashboard.index');
     }

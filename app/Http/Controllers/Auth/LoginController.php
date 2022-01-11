@@ -26,4 +26,15 @@ class LoginController extends Controller
 
         return redirect()->route('auth.login.index')->with(['error' => 'Não foi possível fazer a autenticação']);
     }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('admin.login.index');
+    }
 }

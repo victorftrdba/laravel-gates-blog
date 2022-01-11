@@ -4,42 +4,46 @@
 
 <div class="container mt-5">
     <div class="row">
-        @can('Criar Novo Perfil')
+        @can('Criar Novo Usuário')
         <div class="col-4 mb-5">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Novo Perfil
+                Novo Usuário
             </button>
-            @include('admin.roles._modal_addRole')
+            @include('admin.users._modal_addUser')
         </div>
         @endcan
         <div class="col-12">
             <table class="table table-bordered">
                 <thead>
-                    <th>Nome do Perfil</th>
-                    <th>Permissões</th>
-                    @can('Editar Perfil')
+                    <th>Nome do Usuário</th>
+                    <th>E-mail</th>
+                    <th>Perfil</th>
+                    @can('Editar Usuários')
                     <th>Ações</th>
                     @endcan
                 </thead>
                 <tbody>
-                    @foreach($roles as $role)
+                @foreach($users as $user)
                     <tr>
                         <td>
-                            {{ $role->name }}
+                            {{ $user->name }}
                         </td>
                         <td>
-                            @foreach($role->permissions as $item)
-                            <li>{{ $item->name }}</li>
+                            {{ $user->email }}
+                        </td>
+                        <td>
+                            @foreach($user->roles as $item)
+                                <li>{{ $item->name }}</li>
                             @endforeach
                         </td>
-                        @can('Editar Perfil')
+                        @can('Editar Usuários')
                         <td class="d-flex align-items-center">
-                            <a href="{{ route('admin.roles.edit', $role->id) }}"><i class="fas fa-pen"></i></a>
-                            <button type="button" data-id="{{ $role->id }}" class="btn btnDeleteRole"><i class="fas fa-trash"></i></button>
+                            <a href="{{ route('admin.users.edit', $user->id) }}"><i class="fas fa-pen"></i></a>
+                            <button type="button" data-user="{{ $user->id }}"  class="btn btnDeleteUser"><i class="fas fa-trash"></i></button>
                         </td>
                         @endcan
                     </tr>
-                    @endforeach
+                @endforeach
                 </tbody>
             </table>
         </div>

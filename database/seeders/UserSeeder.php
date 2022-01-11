@@ -18,11 +18,13 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
+                'id' => 1,
                 'name' => 'Victor Nogueira',
                 'email' => 'victor@gmail.com',
                 'password' => Hash::make('dev102030'),
             ],
             [
+                'id' => 2,
                 'name' => 'Desenvolvedor',
                 'email' => 'dev@gmail.com',
                 'password' => Hash::make('dev102030'),
@@ -30,11 +32,17 @@ class UserSeeder extends Seeder
         ];
 
         foreach($users as $user) {
-            User::create([
-                'name' => $user["name"],
-                'email' => $user["email"],
-                'password' => $user["password"]
-            ]);
+            $res = User::find($user["id"]);
+
+            if($res) {
+                $res->update($user);
+            } else {
+                User::create([
+                    'name' => $user["name"],
+                    'email' => $user["email"],
+                    'password' => $user["password"]
+                ]);
+            }
         }
     }
 }
